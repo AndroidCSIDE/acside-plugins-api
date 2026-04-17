@@ -7,10 +7,7 @@ import java.io.File
 /**
  * Public Template API for plugin use.
  *
- * Plugins register project/file templates through this interface.  The
- * internal Template proxy machinery (TemplateAccessor, reflection calls) is
- * entirely hidden from plugin code.
- *
+ * Plugins register project/file templates through this interface.
  * Obtain an instance via [PluginApi.templates].
  */
 interface ITemplateApi {
@@ -30,7 +27,6 @@ interface ITemplateApi {
     fun unregisterTemplate(handle: TemplateHandle)
 
     // ─── File / directory helpers ─────────────────────────────────────────────
-    // These mirror TemplateAccessor utilities but are part of the public surface.
 
     /** Create [paths] as a chain of directories under [baseDir]. Returns the leaf dir. */
     fun createDirectories(baseDir: File, vararg paths: String): File
@@ -44,34 +40,17 @@ interface ITemplateApi {
      */
     fun createStandardStructure(projectDir: File, packageId: String): ProjectStructure
 
-    // ─── Options helper (for templates.json-dispatched plugins) ──────────────
+    // ─── Options helper ───────────────────────────────────────────────────────
 
     /**
      * Extract typed [TemplateOptionsData] from the raw options object the IDE
      * passes to a template's create() method.
      *
      * Use this when your plugin is invoked via templates.json (i.e. you receive
-     * a raw Any options parameter rather than a pre-typed TemplateOptionsData).
+     * a raw Any options parameter rather than a pre-typed [TemplateOptionsData]).
      */
     fun extractOptions(rawOptions: Any): TemplateOptionsData
 
-    /**
-     * FIX #4: This was previously callable by any plugin, making it a reflected-
-     * dispatch backdoor — a plugin could obtain any internal IDE object (e.g. via
-     * ILspApi.getClient()) and invoke arbitrary methods on it by passing it here.
-     *
-     * Now annotated @InternalPluginApi.  Plugin code that calls this will fail
-     * to compile with an opt-in error.  The IDE bridge (TemplateApiImpl) calls
-     * TemplateAccessor.callListenerMethod directly rather than routing through
-     * this interface method.
-     *
-     * Common method names (for IDE use only):
-     *  - "onTemplateCreationStarted"
-     *  - "onTemplateCreated"          (args: Boolean success, String message, File projectRoot)
-     *  - "onTemplateCreationFailed"   (args: Throwable cause)
-     *
-     * No-op if [listener] is null or the method is not found.
-     */
     @InternalPluginApi
     fun callListenerMethod(listener: Any?, methodName: String, vararg args: Any?)
 }
@@ -102,8 +81,7 @@ data class TemplateSpec(
 class TemplateHandle @InternalPluginApi constructor(@InternalPluginApi val id: String)
 
 /**
- * Typed representation of the common fields from a TemplateOptions object.
- * Mirrors [TemplateAccessor.TemplateOptionsData] in the public surface.
+ * Typed representation of the common fields from a template options object.
  */
 data class TemplateOptionsData(
     val projectName: String,

@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ACSPluginApi"
+rootProject.name = "acs-plugin-api"
 include("main")

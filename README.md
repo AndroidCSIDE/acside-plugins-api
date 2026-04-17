@@ -25,6 +25,43 @@ Hey! Welcome to the Android Code Studio Plugin API docs. This guide covers every
 
 Plugins interact with the IDE exclusively through the `PluginApi` object. You never get a direct reference to any internal IDE class. That's intentional, the API surface is designed to be stable, safe, and versioned.
 
+
+#### Add the API to your plugin's Gradle build file
+
+For Groovy:
+```groovy
+implementation 'com.github.nullij:acside-plugin-api:0.1.0'
+```
+
+If you're using the Gradle Kotlin DSL:
+```kts
+implementation("com.github.nullij:acside-plugin-api:0.1.0")
+```
+
+Ensure that JitPack is added to your Gradle settings file.
+
+For Groovy:
+```groovy
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        // ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+For Kotlin DSL:
+```kts
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        // ...
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+```
+
 The IDE wires everything up before your plugin action fires, so you don't need to do any setup. Just access what you need through `PluginApi`.
 
 ```kotlin
@@ -902,3 +939,5 @@ context.runOnUiThread {
 ---
 
 That's the whole API. If something isn't covered here, it's probably intentional (meaning it's either internal IDE code or not part of the stable plugin surface). When in doubt, work with what's in this guide.
+You can always check the AndroidCS Plugins repository (https://github.com/AndroidCSIDE/androidcs-plugins/tree/main/official) to see how templates and LSPs are registered and created, which can help you better understand the process.
+

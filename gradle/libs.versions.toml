@@ -7,6 +7,7 @@ android-library = "8.13.0"
 material = "1.12.0"
 appcompat = "1.7.0"
 core-ktx = "1.13.1"
+compose-runtime = "1.10.6"
 
 [libraries]
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -17,6 +18,7 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
+androidx.compose.runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose.runtime" }
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

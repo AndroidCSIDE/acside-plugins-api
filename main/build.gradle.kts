@@ -6,8 +6,6 @@ plugins {
 }
 
 android {
-    // Public plugin API — plugins compile against this, not the full IDE.
-    // MUST NOT depend on anything from the IDE internals.
     namespace = "com.nullij.androidcodestudio.plugins.api"
     compileSdk = 36
 
@@ -34,7 +32,6 @@ android {
     kotlin {
         compilerOptions {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
-            // Enforce opt-in for the @InternalPluginApi annotation at compile time.
             freeCompilerArgs.addAll(
                 "-opt-in=kotlin.RequiresOptIn"
             )
@@ -42,11 +39,10 @@ android {
     }
 }
 
-// Only coroutines — no IDE, no reflection, no accessor classes.
 dependencies {
-    implementation("androidx.compose.runtime:runtime:1.10.6")
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.compose.runtime)
     implementation(libs.androidx.core.ktx)
 }
 
@@ -57,8 +53,8 @@ afterEvaluate {
                 from(components["release"])
 
                 groupId   = "com.github.nullij"
-                artifactId = "ACSPluginApi"
-                version   = "1.0.0"
+                artifactId = "acside-plugin-api"
+                version   = "0.1.0"
             }
         }
     }

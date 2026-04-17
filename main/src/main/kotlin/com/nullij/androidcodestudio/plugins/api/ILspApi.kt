@@ -5,9 +5,7 @@ import java.io.File
 /**
  * Public LSP (Language Server Protocol) API for plugin use.
  *
- * Plugins can query and drive the IDE's language servers through this
- * interface without ever touching the internal LanguageServerRegistry.
- *
+ * Plugins can query and drive the IDE's language servers through this interface.
  * Obtain an instance via [PluginApi.lsp].
  * Returns null from [PluginApi.lsp] when called outside of EditorActivity.
  */
@@ -45,7 +43,7 @@ interface ILspApi {
 
     /**
      * Notify the registry that [file] has been opened.
-     * The registry will start the appropriate server if not already running.
+     * The appropriate server will be started if not already running.
      */
     fun openDocument(file: File): Boolean
 
@@ -91,17 +89,14 @@ interface ILspApi {
 }
 
 /**
- * Plugin authors implement this on the class that you want to wrap your LSP client:
- *
- *   class MyLspClient : LanguageServerClient { ... }
+ * Marker interface for plugin-provided LSP client wrappers.
  */
 interface LanguageServerClient
 
 /**
  * Public specification for a plugin-provided language server.
  *
- * Plugin authors implement this interface.  The gate layer wraps it in the
- * internal PluginLanguageServer proxy before registering with the registry.
+ * Implement this interface and pass the instance to [ILspApi.registerServer].
  */
 interface PluginLanguageServerSpec {
     val languageId: String
@@ -110,11 +105,7 @@ interface PluginLanguageServerSpec {
     fun stop()
     fun isRunning(): Boolean
 
-    /**
-     * FIX #10: Return type changed from [Any] to [LanguageServerClient].
-     * Implement this by returning a [LanguageServerClient] wrapper around
-     * your actual LSP client instance.
-     */
+    /** Return a [LanguageServerClient] wrapper around your actual LSP client instance. */
     fun getClient(): LanguageServerClient
 
     /** Called when a file is opened in the editor. Return true on success. */
