@@ -30,12 +30,31 @@ Plugins interact with the IDE exclusively through the `PluginApi` object. You ne
 
 For Groovy:
 ```groovy
-implementation 'com.github.nullij:acside-plugin-api:0.1.0'
+// Plugins block
+plugins {
+    ...
+    // For packaging and producing a .acp plugin file
+    id 'io.github.nullij.acside-gradle-plugin' version '0.2.0'
+}
+
+dependencies {
+    ...
+    implementation 'com.github.nullij:acside-plugin-api:0.1.0'
+}
 ```
 
 If you're using the Gradle Kotlin DSL:
 ```kts
-implementation("com.github.nullij:acside-plugin-api:0.1.0")
+// Plugins block
+plugins {
+    ...
+    id("io.github.nullij.acside-gradle-plugin").version("0.2.0")
+}
+
+dependencies {
+    ...
+    implementation("com.github.nullij:acside-plugin-api:0.1.0")
+}
 ```
 
 Ensure that JitPack is added to your Gradle settings file.
@@ -46,6 +65,7 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         // ...
+        // for acside-plugin-api
         maven { url 'https://jitpack.io' }
     }
 }
@@ -939,5 +959,5 @@ context.runOnUiThread {
 ---
 
 That's the whole API. If something isn't covered here, it's probably intentional (meaning it's either internal IDE code or not part of the stable plugin surface). When in doubt, work with what's in this guide.
-You can always check the AndroidCS Plugins repository (https://github.com/AndroidCSIDE/androidcs-plugins/tree/main/official) to see how templates and LSPs are registered and created, which can help you better understand the process.
+You can always check the official AndroidCS Plugins repository (https://github.com/AndroidCSIDE/androidcs-plugins/tree/main/official) to see how templates and LSPs are registered and created, which can help you better understand the process.
 

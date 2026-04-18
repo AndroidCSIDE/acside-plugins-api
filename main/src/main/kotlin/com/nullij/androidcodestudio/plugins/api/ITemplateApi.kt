@@ -50,9 +50,10 @@ interface ITemplateApi {
      * a raw Any options parameter rather than a pre-typed [TemplateOptionsData]).
      */
     fun extractOptions(rawOptions: Any): TemplateOptionsData
+    
 
-    @InternalPluginApi
     fun callListenerMethod(listener: Any?, methodName: String, vararg args: Any?)
+
 }
 
 // ─── Supporting types (plugin-visible) ───────────────────────────────────────
