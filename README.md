@@ -27,6 +27,7 @@ Plugins interact with the IDE exclusively through the `PluginApi` object. You ne
 
 
 #### Add the API to your plugin's Gradle build file
+[![](https://jitpack.io/v/AndroidCSIDE/acside-plugins-api.svg)](https://jitpack.io/#AndroidCSIDE/acside-plugins-api)
 
 For Groovy:
 ```groovy
