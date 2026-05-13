@@ -72,7 +72,6 @@ object PluginApi {
         ui:          IUiApi? = null
     ) {
         enforceCallerIsNotPlugin()
-        if (_wired) return
         _editor      = editor
         _environment = environment
         _lsp         = lsp
@@ -80,6 +79,17 @@ object PluginApi {
         _process     = process
         _ui          = ui
         _wired       = true
+    }
+
+    /**
+     * Null out the editor bridge so [EditorApiImpl], which holds an Activity
+     * Context, can be GC'd as soon as [EditorActivity.onDestroy] fires.
+     */
+    @InternalPluginApi
+    @Synchronized
+    fun clearEditor() {
+        enforceCallerIsNotPlugin()
+        _editor = null
     }
 
     @InternalPluginApi
@@ -94,6 +104,20 @@ object PluginApi {
     fun clearUi() {
         enforceCallerIsNotPlugin()
         _ui = null
+    }
+
+    @InternalPluginApi
+    @Synchronized
+    fun clearProcess() {
+        enforceCallerIsNotPlugin()
+        _process = null
+    }
+    
+    @InternalPluginApi
+    @Synchronized
+    fun clearTemplates() {
+        enforceCallerIsNotPlugin()
+        _templates = null
     }
 
     @InternalPluginApi
