@@ -40,7 +40,7 @@ plugins {
 
 dependencies {
     ...
-    implementation 'com.github.AndroidCSIDE:acside-plugins-api:0.1.0'
+    implementation 'com.github.AndroidCSIDE:acside-plugins-api:0.3.0'
 }
 ```
 
@@ -54,7 +54,7 @@ plugins {
 
 dependencies {
     ...
-    implementation("com.github.AndroidCSIDE:acside-plugins-api:0.1.0")
+    implementation("com.github.AndroidCSIDE:acside-plugins-api:0.3.0")
 }
 ```
 
@@ -560,7 +560,8 @@ data class TemplateOptionsData(
     val minSdk: Int,            // Minimum SDK version chosen
     val useKts: Boolean,        // Whether to use Kotlin Script build files
     val saveLocation: File,     // Where to create the project
-    val languageType: String    // "KOTLIN" or "JAVA"
+    val languageType: String,   // "KOTLIN" or "JAVA"
+    val customFields: Map<String, String> = emptyMap(), // Template-specific wizard values
 )
 ```
 

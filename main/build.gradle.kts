@@ -54,7 +54,7 @@ afterEvaluate {
 
                 groupId   = "com.github.nullij"
                 artifactId = "acside-plugin-api"
-                version   = "0.1.0"
+                version   = "0.3.0"
             }
         }
     }

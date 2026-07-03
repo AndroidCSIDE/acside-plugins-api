@@ -90,7 +90,8 @@ data class TemplateOptionsData(
     val minSdk: Int,
     val useKts: Boolean,
     val saveLocation: File,
-    val languageType: String
+    val languageType: String,
+    val customFields: Map<String, String> = emptyMap(),
 )
 
 /**
