@@ -40,7 +40,7 @@ plugins {
 
 dependencies {
     ...
-    implementation 'com.github.AndroidCSIDE:acside-plugins-api:0.3.0'
+    implementation 'com.github.AndroidCSIDE:acside-plugins-api:0.3.1'
 }
 ```
 
@@ -54,7 +54,7 @@ plugins {
 
 dependencies {
     ...
-    implementation("com.github.AndroidCSIDE:acside-plugins-api:0.3.0")
+    implementation("com.github.AndroidCSIDE:acside-plugins-api:0.3.1")
 }
 ```
 
